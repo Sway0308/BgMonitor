@@ -3,3 +3,5 @@
 ################################################################################
 
 /.vs/BgMonitor/v16
+/RegistryMonitor/bin/Debug
+/RegistryMonitor/obj/Debug

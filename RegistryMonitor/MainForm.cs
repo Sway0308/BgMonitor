@@ -63,7 +63,6 @@ namespace RegistryMonitor
             timer.Interval = 10 * 60 * 1000; //每10分鐘檢查一次
             WriteText(DateTime.Now.ToString());
             DeleteRegistryKey();
-            Console.ReadLine();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

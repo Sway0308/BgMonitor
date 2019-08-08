@@ -34,9 +34,9 @@
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.BackToNormal = new System.Windows.Forms.ToolStripMenuItem();
+            this.CloseForm = new System.Windows.Forms.ToolStripMenuItem();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.timer = new System.Windows.Forms.Timer(this.components);
-            this.CloseForm = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,7 +54,7 @@
             // 
             this.notifyIcon1.ContextMenuStrip = this.contextMenuStrip1;
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
-            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.Text = "機碼監視器";
             // 
             // contextMenuStrip1
             // 
@@ -72,6 +72,13 @@
             this.BackToNormal.Text = "回覆原視窗";
             this.BackToNormal.Click += new System.EventHandler(this.BackToNormal_Click);
             // 
+            // CloseForm
+            // 
+            this.CloseForm.Name = "CloseForm";
+            this.CloseForm.Size = new System.Drawing.Size(134, 22);
+            this.CloseForm.Text = "關閉監視器";
+            this.CloseForm.Click += new System.EventHandler(this.FormClose_Click);
+            // 
             // richTextBox1
             // 
             this.richTextBox1.BackColor = System.Drawing.SystemColors.WindowText;
@@ -88,13 +95,6 @@
             this.timer.Interval = 3000;
             this.timer.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
-            // CloseForm
-            // 
-            this.CloseForm.Name = "CloseForm";
-            this.CloseForm.Size = new System.Drawing.Size(134, 22);
-            this.CloseForm.Text = "關閉監視器";
-            this.CloseForm.Click += new System.EventHandler(this.FormClose_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -106,7 +106,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "背景監視器";
+            this.Text = "機碼監視器";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);

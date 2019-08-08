@@ -1,2 +1,2 @@
 # BgMonitor
-R
+Registry background monitor

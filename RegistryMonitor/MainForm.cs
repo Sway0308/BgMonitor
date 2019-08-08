@@ -21,12 +21,17 @@ namespace RegistryMonitor
             timer.Start();
         }
 
-        private void BackToNormal_Click(object sender, EventArgs e)
+        private void BackToNormalForm()
         {
             this.Show();
             this.WindowState = FormWindowState.Normal;
             this.ShowInTaskbar = true;
             this.notifyIcon1.Visible = false;
+        }
+
+        private void BackToNormal_Click(object sender, EventArgs e)
+        {
+            BackToNormalForm();
         }
 
         private void DeleteRegistryKey()
@@ -89,6 +94,11 @@ namespace RegistryMonitor
         {
             timer.Enabled = !timer.Enabled;
             btnSetTimer.Text = timer.Enabled ? "停止計時器" : "啟動計時器";
+        }
+
+        private void NotifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            BackToNormalForm();
         }
     }
 }

@@ -42,7 +42,8 @@
             // 
             // btnSetTimer
             // 
-            this.btnSetTimer.Location = new System.Drawing.Point(177, 161);
+            this.btnSetTimer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSetTimer.Location = new System.Drawing.Point(317, 320);
             this.btnSetTimer.Name = "btnSetTimer";
             this.btnSetTimer.Size = new System.Drawing.Size(75, 23);
             this.btnSetTimer.TabIndex = 0;
@@ -82,12 +83,15 @@
             // 
             // richTextBox1
             // 
+            this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBox1.BackColor = System.Drawing.SystemColors.WindowText;
             this.richTextBox1.ForeColor = System.Drawing.Color.Chartreuse;
             this.richTextBox1.Location = new System.Drawing.Point(0, 0);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(264, 155);
+            this.richTextBox1.Size = new System.Drawing.Size(404, 314);
             this.richTextBox1.TabIndex = 3;
             this.richTextBox1.Text = "";
             // 
@@ -100,11 +104,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(264, 196);
+            this.ClientSize = new System.Drawing.Size(404, 345);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.btnSetTimer);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(800, 600);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "機碼監視器";

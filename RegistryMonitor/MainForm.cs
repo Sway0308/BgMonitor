@@ -42,10 +42,10 @@ namespace RegistryMonitor
                 var value = RegK.GetValue("RemoteAccessHostFirewallTraversal")?.ToString();
                 if (value != null)
                 {
-                    WriteText($"Registry Value = {value}");
-                    WriteText($"Start delete registry");
+                    WriteText($"Registry Value = {value}", errorTxt: true);
+                    WriteText($"Start delete registry", errorTxt: true);
                     RegK.DeleteValue("RemoteAccessHostFirewallTraversal", true);
-                    WriteText($"finish delete registry");
+                    WriteText($"finish delete registry", errorTxt: true);
                 }
                 else
                 {
@@ -54,10 +54,13 @@ namespace RegistryMonitor
             }
         }
 
-        private void WriteText(string text, bool newLine = true)
+        private void WriteText(string text, bool newLine = true, bool errorTxt = false)
         {
             if (newLine)
                 richTextBox1.AppendText(Environment.NewLine);
+
+            var color = errorTxt ? Color.Red : Color.Chartreuse;
+            richTextBox1.SelectionColor = color;
             richTextBox1.AppendText(text);
             richTextBox1.SelectionStart = richTextBox1.TextLength;
             richTextBox1.ScrollToCaret();

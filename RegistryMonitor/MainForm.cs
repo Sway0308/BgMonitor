@@ -42,16 +42,21 @@ namespace RegistryMonitor
                 var value = RegK.GetValue("RemoteAccessHostFirewallTraversal")?.ToString();
                 if (value != null)
                 {
-                    WriteText($"Registry Value = {value}", errorTxt: true);
-                    WriteText($"Start delete registry", errorTxt: true);
+                    WriteErrorText($"Registry Value = {value}");
+                    WriteErrorText($"Start delete registry");
                     RegK.DeleteValue("RemoteAccessHostFirewallTraversal", true);
-                    WriteText($"finish delete registry", errorTxt: true);
+                    WriteErrorText($"finish delete registry");
                 }
                 else
                 {
                     WriteText("No Registry");
                 }
             }
+        }
+
+        private void WriteErrorText(string text, bool newLine = true)
+        {
+            WriteText(text, newLine);
         }
 
         private void WriteText(string text, bool newLine = true, bool errorTxt = false)

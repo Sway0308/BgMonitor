@@ -17,7 +17,7 @@ namespace RegistryMonitor
         {
             InitializeComponent();
 
-            WriteText("Start timer", false);
+            WriteText("Start timer");
             timer.Start();
         }
 
@@ -54,14 +54,14 @@ namespace RegistryMonitor
             }
         }
 
-        private void WriteErrorText(string text, bool newLine = true)
+        private void WriteErrorText(string text)
         {
-            WriteText(text, newLine);
+            WriteText(text, true);
         }
 
-        private void WriteText(string text, bool newLine = true, bool errorTxt = false)
+        private void WriteText(string text, bool errorTxt = false)
         {
-            if (newLine)
+            if (richTextBox1.Text != "")
                 richTextBox1.AppendText(Environment.NewLine);
 
             var color = errorTxt ? Color.Red : Color.Chartreuse;

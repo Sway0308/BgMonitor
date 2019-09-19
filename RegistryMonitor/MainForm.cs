@@ -11,15 +11,21 @@ using System.Windows.Forms;
 
 namespace RegistryMonitor
 {
-    public partial class MainForm : Form
+    public partial class MainForm : Form, IWriteText
     {
         public MainForm()
         {
             InitializeComponent();
-
             WriteText("Start timer");
-            timer.Start();
+            RegistryHandler = new RegistryHandler(this);
         }
+
+        private RegistryHandler RegistryHandler { get; }
+
+        /// <summary>
+        /// 是否可寫
+        /// </summary>
+        public bool IsWritable => WindowState != FormWindowState.Minimized;
 
         private void BackToNormalForm()
         {
@@ -27,6 +33,7 @@ namespace RegistryMonitor
             this.WindowState = FormWindowState.Normal;
             this.ShowInTaskbar = true;
             this.notifyIcon1.Visible = false;
+            RegistryHandler.DequeueOutputText();
         }
 
         private void BackToNormal_Click(object sender, EventArgs e)
@@ -34,32 +41,7 @@ namespace RegistryMonitor
             BackToNormalForm();
         }
 
-        private void DeleteRegistryKey()
-        {
-            //讀取Registry Key位置
-            using (var RegK = Registry.LocalMachine.OpenSubKey(@"Software\Policies\Google\Chrome", RegistryKeyPermissionCheck.ReadWriteSubTree))
-            {
-                var value = RegK.GetValue("RemoteAccessHostFirewallTraversal")?.ToString();
-                if (value != null)
-                {
-                    WriteErrorText($"Registry Value = {value}");
-                    WriteErrorText($"Start delete registry");
-                    RegK.DeleteValue("RemoteAccessHostFirewallTraversal", true);
-                    WriteErrorText($"finish delete registry");
-                }
-                else
-                {
-                    WriteText("No Registry");
-                }
-            }
-        }
-
-        private void WriteErrorText(string text)
-        {
-            WriteText(text, true);
-        }
-
-        private void WriteText(string text, bool errorTxt = false)
+        public void WriteText(string text, bool errorTxt = false)
         {
             if (richTextBox1.Text != "")
                 richTextBox1.AppendText(Environment.NewLine);
@@ -67,41 +49,29 @@ namespace RegistryMonitor
             var color = errorTxt ? Color.Red : Color.Chartreuse;
             richTextBox1.SelectionColor = color;
             richTextBox1.AppendText(text);
+
             richTextBox1.SelectionStart = richTextBox1.TextLength;
             richTextBox1.ScrollToCaret();
         }
 
-        private void Timer1_Tick(object sender, EventArgs e)
-        {
-            timer.Interval = 10 * 60 * 1000; //每10分鐘檢查一次
-            WriteText(DateTime.Now.ToString());
-            DeleteRegistryKey();
-        }
-
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (this.WindowState == FormWindowState.Normal)
+            if (this.WindowState != FormWindowState.Normal)
+                return;
+            
+            var result = MessageBox.Show("是否縮小到工具列", "確認視窗", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
             {
-                var result = MessageBox.Show("是否縮小到工具列", "確認視窗", MessageBoxButtons.YesNo);
-                if (result == DialogResult.Yes)
-                {
-                    this.WindowState = FormWindowState.Minimized;        //決定視窗大小
-                    this.ShowInTaskbar = false;                          //決定是否出現在工作列
-                    this.notifyIcon1.Visible = true;                     //決定使否顯示notifyIcon1
-                    e.Cancel = true;
-                }
-            }
+                this.WindowState = FormWindowState.Minimized;        //決定視窗大小
+                this.ShowInTaskbar = false;                          //決定是否出現在工作列
+                this.notifyIcon1.Visible = true;                     //決定使否顯示notifyIcon1
+                e.Cancel = true;
+            }            
         }
 
         private void FormClose_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void btnSetTimer_Click(object sender, EventArgs e)
-        {
-            timer.Enabled = !timer.Enabled;
-            btnSetTimer.Text = timer.Enabled ? "停止計時器" : "啟動計時器";
         }
 
         private void NotifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)

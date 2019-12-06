@@ -40,7 +40,7 @@ namespace RegistryMonitor
             //讀取Registry Key位置
             using (var RegK = Registry.LocalMachine.OpenSubKey(@"Software\Policies\Google\Chrome", RegistryKeyPermissionCheck.ReadWriteSubTree))
             {
-                var value = RegK.GetValue("RemoteAccessHostFirewallTraversal")?.ToString();
+                var value = RegK?.GetValue("RemoteAccessHostFirewallTraversal")?.ToString();
                 if (value != null)
                 {
                     OutputTextQueue.Enqueue(new OutputText { Text = $"Registry Value = {value}", IsError = true });

@@ -16,12 +16,14 @@ namespace RegistryMonitor
         public MainForm()
         {
             InitializeComponent();
+            RegistryHandler = new RegistryHandler(this);
+            md = new WriteTextDelegate(DoWriteText);
         }
 
-        private RegistryHandler RegistryHandler { get; set; }
+        private RegistryHandler RegistryHandler { get; }
 
         private delegate void WriteTextDelegate(string text, bool errorTxt = false);
-        private WriteTextDelegate md;
+        private WriteTextDelegate md { get; }
 
         /// <summary>
         /// 是否可寫
@@ -112,9 +114,7 @@ namespace RegistryMonitor
         /// <param name="e"></param>
         private void MainForm_Load(object sender, EventArgs e)
         {
-            RegistryHandler = new RegistryHandler(this);
-            md = new WriteTextDelegate(DoWriteText);
-            WriteText("Start timer");
+            DoWriteText("Start timer");
         }
     }
 }
